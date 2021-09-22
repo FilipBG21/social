@@ -1,0 +1,67 @@
+---
+layout: signup
+title: Conectare
+---
+
+<!--Fake navigation-->
+<div class="fake-nav">
+    <a href="/" class="logo">
+        <img src="assets/img/logo/friendkit-bold.svg" width="112" height="28" alt="">
+    </a>
+</div>
+
+<div class="container">
+    <!--Container-->
+    <div class="login-container">
+        <div class="columns is-vcentered h-100">
+            <div class="column is-6 image-column">
+                <img class="light-image login-image" src="assets/img/illustrations/login/login.svg" alt="">
+            </div>
+            <div class="column is-6">
+
+                <h2 class="form-title">Bine ai revenit!</h2>
+                <h3 class="form-subtitle">Te rugăm să îți introduci datele de conectare.</h3>
+
+                <!--Form-->
+                <div class="login-form">
+                    <form id="loginForm">
+                        <div class="form-panel">
+                            <div class="field">
+                                <label>Email</label>
+                                <div class="control">
+                                    <input type="email" class="input" name="log_email" placeholder="Scrie adresa de email">
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>Parola</label>
+                                <div class="control">
+                                    <input type="password" class="input" name="log_password" placeholder="Scrie parola">
+                                </div>
+                            </div>
+                            <div class="field is-flex">
+                                <div class="switch-block">
+                                    <label class="f-switch">
+                                        <input type="checkbox" name="remember" class="is-switch">
+                                        <i></i>
+                                    </label>
+                                    <div class="meta">
+                                        <p>Menține contul conectat</p>
+                                    </div>
+                                </div>
+                                <a>Ai uitat parola?</a>
+                            </div>
+                        </div>
+                    </form>
+                    <span id="error-message"></span>
+                    <div class="buttons">
+                        <div class="button is-solid primary-button is-fullwidth raised" id="loginButton">Conectare</div>
+                    </div>
+
+                    <div class="account-link has-text-centered">
+                        <a href="/signup.html">Nu ai un cont? Înregistrează-te</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
