@@ -10,7 +10,7 @@ function initAutoTag() {
     $('.demo option').remove();
 
     $.ajax({
-        url: 'assets/data/api/users/users.json',
+        url: 'https://help.wolfix.ro/api/users/list_users.php',
         async: true,
         dataType: 'json',
         success: function (data) {

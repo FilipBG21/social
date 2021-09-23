@@ -5,9 +5,9 @@ Handles the user popovers that appear when hovering a user image
 ========================================================================== */
 
 "use strict";
-
+var users = [];
 function getUserPopovers() {
-    $('*[data-user-popover]').each(function () {
+    $('*[data-user-popover]').mouseenter(function () {
         var e = $(this);
         var userRef = $(this).attr('data-user-popover');
 
@@ -17,83 +17,152 @@ function getUserPopovers() {
         var usersIcon = feather.icons.users.toSvg();
         var bookmarkIcon = feather.icons.bookmark.toSvg();
 
-
-        $.ajax({
-            url: 'assets/data/api/users/users.json',
-            async: true,
-            dataType: 'json',
-            success: function (data) {
-                e.webuiPopover({
-                    trigger: 'hover',
-                    placement: 'auto',
-                    width: 300,
-                    padding: false,
-                    offsetLeft: 0,
-                    offsetTop: 20,
-                    animation: 'pop',
-                    cache: false,
-                    content: function () {
-
-                        var destroyLoader = setTimeout(function () {
-                            $('.loader-overlay').removeClass('is-active');
-                        }, 1000);
-
-                        var html = `
-                                <div class="profile-popover-block">
-
-                                    <div class="loader-overlay is-active">
-                                        <div class="loader is-loading"></div>
-                                    </div>
-
-                                    <div class="profile-popover-wrapper">
-                                        <div class="popover-cover">
-                                            <img src="${data[userRef].cover_image}">
-                                            <div class="popover-avatar">
-                                                <img class="avatar" src="${data[userRef].profile_picture}">
-                                            </div>
-                                        </div>
-
-                                        <div class="popover-meta">
-                                            <span class="user-meta">
-                                                <span class="username">${data[userRef].first_name} ${data[userRef].last_name}</span>
-                                            </span>
-                                            <!--span class="job-title">${data[userRef].title}</span-->
-                                            <div class="common-friends">
-                                                ${usersIcon}
-                                                <div class="text">
-                                                    ${data[userRef].common_friends} mutual friend(s)
-                                                </div>
-                                            </div>
-                                            <div class="user-location">
-                                                ${pinIcon}
-                                                <div class="text">
-                                                    From <a href="#">${data[userRef].location}</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="popover-actions">
-
-                                        <a href="#" class="popover-icon">
-                                            ${profileIcon}
-                                        </a>
-                                        <a href="#" class="popover-icon">
-                                            ${bookmarkIcon}
-                                        </a>
-                                        <a href="#" class="popover-icon">
-                                            ${messageIcon}
-                                        </a>
-                                    </div>
-                                </div>
-                            `;
-
-                        return html;
-                        return destroyLoader;
-
-                    }
-                });
-            }
+        let userLocal =  _.filter(users, function(o) {
+            return o.id === userRef || o === userRef;
         });
+        console.log('include', userLocal);
+        if(userLocal.length === 0){
+            $.ajax({
+                url: 'https://help.wolfix.ro/api/users/list_user?id='+userRef,
+                async: true,
+                dataType: 'json',
+                success: function (data) {
+
+                    users.push(data);
+                    console.log(data);
+                    setTimeout(function () {
+                        e.webuiPopover({
+                            trigger: 'hover',
+                            placement: 'auto',
+                            width: 300,
+                            padding: false,
+                            offsetLeft: 0,
+                            offsetTop: 20,
+                            animation: 'pop',
+                            cache: false,
+                            content: function () {
+
+                                var destroyLoader = setTimeout(function () {
+                                    $('.loader-overlay').removeClass('is-active');
+                                }, 300);
+
+                                var html = `
+                                    <div class="profile-popover-block">
+    
+                                        <div class="loader-overlay is-active">
+                                            <div class="loader is-loading"></div>
+                                        </div>
+    
+                                        <div class="profile-popover-wrapper">
+                                            <div class="popover-cover">
+                                                <img src="${data.profile_pic}">
+                                                <div class="popover-avatar">
+                                                    <img class="avatar" src="${data.profile_pic}">
+                                                </div>
+                                            </div>
+    
+                                            <div class="popover-meta">
+                                                <span class="user-meta">
+                                                    <span class="username">${data.first_name} ${data.last_name}</span>
+                                                </span>
+                                                <!--span class="job-title">${data.title}</span-->
+                                                <div class="common-friends">
+                                                    ${usersIcon}
+                                                    <div class="text">
+                                                        ${data.common_friends} mutual friend(s)
+                                                    </div>
+                                                </div>
+                                                <div class="user-location">
+                                                    ${pinIcon}
+                                                    <div class="text">
+                                                        From <a href="#">${data.location}</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="popover-actions">
+    
+                                            <a href="#" class="popover-icon">
+                                                ${profileIcon}
+                                            </a>
+                                            <a href="#" class="popover-icon">
+                                                ${bookmarkIcon}
+                                            </a>
+                                            <a href="#" class="popover-icon">
+                                                ${messageIcon}
+                                            </a>
+                                        </div>
+                                    </div>
+                                `;
+
+                                return html;
+                                return destroyLoader;
+
+                            }
+                        });
+                        e.webuiPopover('show');
+                    }, 500);
+                },
+                error: function (data) {
+                    console.log(data.responseJSON.mesaj);
+                    users.push(userRef);
+                    console.log(users);
+                }
+
+            });
+        } else{
+            setTimeout(function () {
+                var html = `
+                                    <div class="profile-popover-block">
+    
+                                        <div class="loader-overlay is-active">
+                                            <div class="loader is-loading"></div>
+                                        </div>
+    
+                                        <div class="profile-popover-wrapper">
+                                            <div class="popover-cover">
+                                                <img src="${userLocal[0].profile_pic}">
+                                                <div class="popover-avatar">
+                                                    <img class="avatar" src="${userLocal[0].profile_pic}">
+                                                </div>
+                                            </div>
+    
+                                            <div class="popover-meta">
+                                                <span class="user-meta">
+                                                    <span class="username">${userLocal[0].first_name} ${userLocal[0].last_name}</span>
+                                                </span>
+                                                <!--span class="job-title">${userLocal[0].title}</span-->
+                                                <div class="common-friends">
+                                                    ${usersIcon}
+                                                    <div class="text">
+                                                        ${userLocal[0].common_friends} mutual friend(s)
+                                                    </div>
+                                                </div>
+                                                <div class="user-location">
+                                                    ${pinIcon}
+                                                    <div class="text">
+                                                        From <a href="#">${userLocal[0].location}</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="popover-actions">
+    
+                                            <a href="#" class="popover-icon">
+                                                ${profileIcon}
+                                            </a>
+                                            <a href="#" class="popover-icon">
+                                                ${bookmarkIcon}
+                                            </a>
+                                            <a href="#" class="popover-icon">
+                                                ${messageIcon}
+                                            </a>
+                                        </div>
+                                    </div>
+                                `;
+            }, 500);
+        }
+
     });
 }
 
