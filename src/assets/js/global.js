@@ -5,6 +5,9 @@ Project wide reusable functions
 ========================================================================== */
 
 "use strict";
+var retrievedObject = localStorage.getItem('user');
+var user = JSON.parse(retrievedObject);
+console.log('username: ', user.profile_pic);
 
 
 /* ==========================================================================

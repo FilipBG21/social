@@ -6,7 +6,7 @@ $(document).ready(function () {
         console.log(dataForm);
         $.ajax({
             type: "POST",
-            url: 'https://help.wolfix.ro/conectare.php',
+            url: 'https://help.wolfix.ro/api/login/conectare.php',
             processData: false,
             contentType: false,
             data: dataForm,
@@ -15,6 +15,7 @@ $(document).ready(function () {
                 if(response.username){
                     $(".control").removeAttr("class");
                     document.getElementById("error-message").classList.add('is-hidden');
+                    localStorage.setItem('user', JSON.stringify(response));
                     setTimeout(function(){location.href="/home.html"} , 500);
                 } else{
                     document.getElementById("error-message").innerHTML = response.mesaj;

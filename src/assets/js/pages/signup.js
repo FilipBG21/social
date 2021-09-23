@@ -60,10 +60,14 @@ $(document).ready(function () {
         console.log(completeForm);
         $.ajax({
             type: "POST",
-            url: 'https://help.wolfix.ro/inregistrare.php',
+            url: 'https://help.wolfix.ro/api/register/inregistrare.php',
             processData: false,
             contentType: false,
             data: dataForm,
+            success : function (response) {
+                console.log(response);
+                localStorage.setItem('user', JSON.stringify(response));
+            }
         });
     });
 
@@ -112,7 +116,7 @@ $(document).ready(function () {
 
     $('#signup-finish').on('click', function () {
         var $this = $(this);
-        var url = '/navbar-v1-feed.html';
+        var url = '/home.html';
         $this.addClass('is-loading');
         setTimeout(function () {
             window.location = url;

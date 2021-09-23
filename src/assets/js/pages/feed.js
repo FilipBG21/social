@@ -8,6 +8,7 @@ $(document).ready(function () {
 
     "use strict";
 
+
     if ($('#activity-feed').length) {
 
         //Feed v1 left menu

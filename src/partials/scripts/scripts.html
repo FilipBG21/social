@@ -1,17 +1,11 @@
 <!-- Concatenated js plugins and jQuery -->
 <script src="{{ root }}assets/js/app.js"></script>
-<script src="https://js.stripe.com/v3/"></script>
 <script src="{{ root }}assets/data/tipuedrop_content.js"></script>
 
 <!-- Core js -->
 <script src="{{ root }}assets/js/global.js"></script>
 
-<!-- Navigation options js -->
-<script src="{{ root }}assets/js/navbar-v1.js"></script>
-<script src="{{ root }}assets/js/navbar-v2.js"></script>
-<script src="{{ root }}assets/js/navbar-mobile.js"></script>
-<script src="{{ root }}assets/js/navbar-options.js"></script>
-<script src="{{ root }}assets/js/sidebar-v1.js"></script>
+
 
 <!-- Core instance js -->
 <script src="{{ root }}assets/js/main.js"></script>
@@ -27,6 +21,12 @@
 <script src="{{ root }}assets/js/popovers-pages.js"></script>
 <script src="{{ root }}assets/js/lightbox.js"></script>
 
+<!-- Navigation options js -->
+<script src="{{ root }}assets/js/navbar-v1.js"></script>
+<script src="{{ root }}assets/js/navbar-v2.js"></script>
+<script src="{{ root }}assets/js/navbar-mobile.js"></script>
+<script src="{{ root }}assets/js/navbar-options.js"></script>
+<script src="{{ root }}assets/js/sidebar-v1.js"></script>
 <!-- Landing page js -->
 {{#ifpage 'index'}}
 <script src="{{ root }}assets/js/landing.js"></script>
@@ -43,13 +43,13 @@
 {{/ifpage}}
 
 <!-- Feed pages js -->
-{{#ifpage 'navbar-v1-feed' 'navbar-v1-feed-sidebar' 'navbar-v1-feed-slider'
+{{#ifpage 'home' 'navbar-v1-feed-sidebar' 'navbar-v1-feed-slider'
 'navbar-v1-profile-main' 'navbar-v1-pages-main' 'navbar-v2-feed'
 'navbar-v2-feed-sidebar' 'navbar-v2-feed-slider' 'navbar-v2-profile-main'
 'navbar-v2-pages-main' 'sidebar-v1-feed' 'sidebar-v1-profile-main'
 'sidebar-v1-pages-main' }}
 <script src="{{ root }}assets/js/feed.js"></script>
-{{/ifpage}} {{#ifpage 'navbar-v1-feed' 'navbar-v1-feed-sidebar' 'navbar-v2-feed'
+{{/ifpage}} {{#ifpage 'home' 'navbar-v1-feed-sidebar' 'navbar-v2-feed'
 'navbar-v2-feed-sidebar' 'sidebar-v1-feed' }}
 <script src="{{ root }}assets/js/webcam.js"></script>
 <script src="{{ root }}assets/js/compose.js"></script>

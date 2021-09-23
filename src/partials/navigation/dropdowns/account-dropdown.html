@@ -1,6 +1,15 @@
 <div id="account-dropdown" class="navbar-item is-account drop-trigger has-caret">
     <div class="user-image">
-        <img  src="https://via.placeholder.com/400x400" data-demo-src="assets/img/avatars/jenna.png" alt="">
+        <script>
+            var waitForJQuery = setInterval(function () {
+                if (typeof $ != 'undefined') {
+                    console.log('pic: ', user.profile_pic)
+                    document.getElementById("user-avatar").src=user.profile_pic;
+                    clearInterval(waitForJQuery);
+                }
+            }, 10);
+        </script>
+        <img  src="https://via.placeholder.com/400x400" id="user-avatar" data-demo-src="assets/img/avatars/jenna.png" alt="">
         <span class="indicator"></span>
     </div>
 
